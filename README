@@ -1,31 +1,38 @@
 == bI script language (sim variant) ==
 
-Literals:
+bI/sim not includes: {lambdas} , classes, number literals , <vectors>
+
+### Literals:
 
 # comment
--1 2.3 -4e+5	# bI/sim have no numbers, int:eger and float num:ber
+-1 2.3 -4e+5	# int:eger and float num:ber in dot and exponential form
 0x12AF			# machine hexadecimal
-0b1101			# machine binary / binary string
+0b1101			# binary string
 symbol			# can include _.
 'string'
 
-Brackets:
+### Brackets:
 
-()      grouping in expressions
-[]      plain list
-{}      lambda function
+()      		# grouping in expressions
+[]      		# plain list
+{`var}     		# lambda function
+tu,pl,e			# can be used as pa,ir (co.ns in Lisp)
+<vector>
 
-Operators (infix):
+### Operators (infix):
 
-A = B   assignment
-A @ B   apply A (as function)
-A + B   concatenate (sum)
+~A				# use A as is (QUOTE function in Lisp)
+A = B			# assignment
+A @ B			# apply A (as function)
+A : B[,C,D,..]	# class inheritance (A,.. is superclasses)
+`A				# {lambda} parameter
+A + B			# concatenate (sum)
 
-Lambda:
+### Lambda:
 
 empty		= {}		# assign lambda as named function
 invariant	= {X:Y}		# <SIM>: marks lambda parameter
 copy		= {X:X}
 
-{X: Y: sqr@(X^2+Y^2)}	# sample with 2 parameters, unnamed lambda as is
+{`X `Y sqr@(X^2+Y^2)}	# sample with 2 parameters, unnamed lambda as is
 
