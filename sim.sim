@@ -9,8 +9,8 @@ files = [
 	ypp.ypp
 	lpp.lpp
 	hpp.hpp
-	cpp.cpp
-	Makefile
+	next+cpp.cpp
+	next+Makefile
 ]
 
 skeleton = [
@@ -19,3 +19,4 @@ skeleton = [
 	.gitignore
 ]
 
+next

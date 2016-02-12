@@ -10,9 +10,14 @@
 using namespace std;
 
 struct Sim;
-struct Env { Env(Env*); Env* next; Sim* lookup(string); map<string,Sim*> iron; };
+struct Env { 
+	Env(Env*); Env* next; 
+	Sim* lookup(string); map<string,Sim*> iron;
+	string dump();
+};
 extern Env *glob;
 extern void env_init();
+
 struct Sim {
 	string tag,val;
 	Sim(string,string); Sim(string);
@@ -21,7 +26,9 @@ struct Sim {
 	virtual string dump(int depth=0); string pad(int);
 	virtual string tagval(); string tagstr();
 	virtual Sim* eval();
+	virtual Sim* eq(Sim*);
 	virtual Sim* at(Sim*);
+	virtual Sim* add(Sim*);
 };
 extern void W(Sim*);
 extern void W(string);
@@ -33,9 +40,10 @@ struct List: Sim { List(); };
 typedef Sim*(*FN)(Sim*);
 struct Fn: Sim { Fn(string,FN); FN fn; Sim*at(Sim*); };
 
-struct Op: Sim { Op(string); };//Sim*eval(); };
+struct Op: Sim { Op(string); Sim*eval(); };
 
-struct Dir: Sim { Dir(string); };
+struct File: Sim { File(string); string tagval(); };
+struct Dir: Sim { Dir(string); Sim*add(Sim*); string tagval(); };
 
 extern int yylex();
 extern int yylineno;
