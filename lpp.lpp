@@ -6,13 +6,13 @@
 %%
 #[^\n]*			{}
 
-\[				TOC(LQ)
-\]				TOC(RQ)
+\[				TOC(Sim,LQ)
+\]				TOC(Sim,RQ)
 
-\=				TOC(EQ)
-\@				TOC(AT)
+\=				TOC(Sim,EQ)
+\@				TOC(Sim,AT)
 
-[a-zA-Z0-9_.]+	TOC(SIM)
+[a-zA-Z0-9_.]+	TOC(Sim,SIM)
 
 [ \r\n\t]+		{}
 %%
