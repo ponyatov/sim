@@ -19,4 +19,11 @@ skeleton = [
 	.gitignore
 ]
 
-next
+# multi assignment test
+
+[ A B C ]
+A = B
+[ A B C ]
+A = C
+[ A B C ]
+
