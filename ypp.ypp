@@ -1,0 +1,8 @@
+%{
+#include "hpp.hpp"
+%}
+%defines %union { Sim*o; }
+%token <o> SIM
+%%
+REPL : | REPL SIM { W($2); } ;
+%%
