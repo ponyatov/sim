@@ -1,9 +1,10 @@
-# lex model
+# lex skeleton
 
 next = dir@next
 
 files = [
-	~(MODULE+MODULE)+.+MODULE
+	MODULE+MODULE
+	~MODULE+.sim
 	MODULE+.log
 	ypp.ypp
 	lpp.lpp
@@ -17,3 +18,4 @@ skeleton = [
 	bat.bat
 	.gitignore
 ]
+

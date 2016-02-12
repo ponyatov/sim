@@ -13,7 +13,7 @@
 %left ADD
 %left TILD
 %%
-REPL	: | REPL ex 	{ W($2->eval(env)); W("\n"); } ;
+REPL	: | REPL ex 	{ W($2->eval()); W("\n"); } ;
 ex		: SIM
 		| L ex R		{ $$=$2; }
 		| LQ list RQ	{ $$=$2; }

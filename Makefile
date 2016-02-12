@@ -1,4 +1,5 @@
 MODULE = $(notdir $(CURDIR))
+.PHONY: sim.log
 sim.log: sim.sim ./exe.exe
 	./exe.exe < $< > $@ && tail $(TAIL) $@
 C = cpp.cpp ypp.tab.cpp lex.yy.c

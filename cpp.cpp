@@ -6,7 +6,7 @@ int main() { env_init(); return yyparse(); }
 void W(Sim*o) { cout << o->dump(); }
 void W(string s) { cout << s; }
 
-Sim::Sim(string T,string V) { tag=T; val=V; }
+Sim::Sim(string T,string V) { tag=T; val=V; env=new Env(glob); }
 Sim::Sim(string V):Sim("",V) {}
 void Sim::push(Sim*o) { nest.push_back(o); }
 
@@ -17,12 +17,15 @@ string Sim::dump(int depth) { string S = "\n"+pad(depth)+tagval();
 	for (auto it=nest.begin(),e=nest.end();it!=e;it++) S+=(*it)->dump(depth+1);
 	return S; }
 
-Sim* Sim::eval(Env*env) {
+Sim* Sim::eval() {
 	Sim* E = env->lookup(val); if (E) return E;
 	for (auto it=nest.begin(),e=nest.end();it!=e;it++)
-		(*it)=(*it)->eval(env);
+		(*it)=(*it)->eval();
 	return this;
 }
+
+Sim* Sim::at(Sim*o) {
+	Sim*op=new Op("@"); op->push(this); op->push(o); return op; }
 
 Str::Str(string V):Sim("str",V) {}
 string Str::tagval() { return tagstr(); }
@@ -30,23 +33,33 @@ string Str::tagval() { return tagstr(); }
 List::List():Sim("[","]") {}
 
 Fn::Fn(string V, FN F):Sim("fn",V) { fn=F; }
+Sim* Fn::at(Sim*o) { return fn(o); }
 
 Op::Op(string V):Sim("op",V) {}
-Sim* Op::eval(Env*env) {
-	if (val=="~") return nest[0];
-	else Sim::eval(env);
+/*
+Sim* Op::eval() {
+	if (val=="~") return nest[0]; // quote
+	Sim::eval();
+	if (nest.size()==2) { // binops
+		if (val=="@") return nest[0]->at(nest[1]);
+	}
+	return this;
 }
-
-Env* env;
-Sim* Env::lookup(string V) { return iron[V]; }
+*/
 
 Dir::Dir(string V):Sim("dir",V) {}
 Sim* dir(Sim*o) { return new Dir(o->val); }
 
+Env* glob = new Env(NULL);
+Env::Env(Env*e) { next=e; }
+Sim* Env::lookup(string V) {
+	Sim*E = iron[V]; if (E) return E;	// lookup local
+	if (next) return next->lookup(V);	// lookup nested
+	else return NULL;					// not found
+}
 void env_init() {
-	env = new Env;
 	// metainfo
-	env->iron["MODULE"] = new Str(MODULE);
+	glob->iron["MODULE"] = new Str(MODULE);
 	// fileio
-	env->iron["dir"] = new Fn("dir",dir);
+	glob->iron["dir"] = new Fn("dir",dir);
 }

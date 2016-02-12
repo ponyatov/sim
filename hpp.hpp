@@ -4,22 +4,24 @@
 #include <iostream>
 #include <cstdlib>
 //#include <cstdio>
-//#include <cassert>
+#include <cassert>
 #include <vector>
 #include <map>
 using namespace std;
 
 struct Sim;
-struct Env { Env* next; Sim* lookup(string); map<string,Sim*> iron; };
-extern Env *env;
+struct Env { Env(Env*); Env* next; Sim* lookup(string); map<string,Sim*> iron; };
+extern Env *glob;
 extern void env_init();
 struct Sim {
 	string tag,val;
 	Sim(string,string); Sim(string);
+	Env*env;
 	vector<Sim*> nest; void push(Sim*);
 	virtual string dump(int depth=0); string pad(int);
 	virtual string tagval(); string tagstr();
-	virtual Sim* eval(Env*);
+	virtual Sim* eval();
+	virtual Sim* at(Sim*);
 };
 extern void W(Sim*);
 extern void W(string);
@@ -29,9 +31,9 @@ struct Str: Sim { Str(string); string tagval(); };
 struct List: Sim { List(); };
 
 typedef Sim*(*FN)(Sim*);
-struct Fn: Sim { Fn(string,FN); FN fn; };
+struct Fn: Sim { Fn(string,FN); FN fn; Sim*at(Sim*); };
 
-struct Op: Sim { Op(string); Sim*eval(Env*); };
+struct Op: Sim { Op(string); };//Sim*eval(); };
 
 struct Dir: Sim { Dir(string); };
 
