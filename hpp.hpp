@@ -6,20 +6,29 @@
 //#include <cstdio>
 //#include <cassert>
 #include <vector>
-//#include <map>
+#include <map>
 using namespace std;
 
+struct Sim;
+struct Env { Env* next; Sim* lookup(string); map<string,Sim*> iron; };
+extern Env *env;
+extern void env_init();
 struct Sim {
-	string val;
-	Sim(string);
+	string tag,val;
+	Sim(string,string); Sim(string);
 	vector<Sim*> nest; void push(Sim*);
 	virtual string dump(int depth=0); string pad(int);
+	virtual Sim* eval(Env*);
 };
+extern void W(Sim*);
+extern void W(string);
 
 struct List: Sim { List(); };
 
-extern void W(Sim*);
-extern void W(string);
+typedef Sim*(*FN)(Sim*);
+struct Fn: Sim { Fn(string,FN); FN fn; };
+
+struct Dir: Sim { Dir(string); };
 
 extern int yylex();
 extern int yylineno;

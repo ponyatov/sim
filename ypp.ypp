@@ -10,7 +10,7 @@
 %left EQ
 %left AT
 %%
-REPL	: | REPL ex 	{ W($2); W("\n"); } ;
+REPL	: | REPL ex 	{ W($2->eval(env)); W("\n"); } ;
 ex		: SIM
 		| LQ list RQ	{ $$=$2; }
 		| ex EQ ex		{ $$=$2; $$->push($1); $$->push($3); }

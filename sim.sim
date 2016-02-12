@@ -2,7 +2,7 @@
 
 next = dir@next
 
-skeleton = [
+files = [
 	sim.sim
 	sim.log
 	ypp.ypp
@@ -10,6 +10,10 @@ skeleton = [
 	hpp.hpp
 	cpp.cpp
 	Makefile
+]
+
+skeleton = [
+	files
 	bat.bat
 	.gitignore
 ]
