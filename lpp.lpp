@@ -6,11 +6,14 @@
 %%
 #[^\n]*			{}
 
+\(				TOC(Sim,L)
+\)				TOC(Sim,R)
 \[				TOC(Sim,LQ)
 \]				TOC(Sim,RQ)
 
 \=				TOC(Op,EQ)
 \@				TOC(Op,AT)
+\~				TOC(Op,TILD)
 
 \+				TOC(Op,ADD)
 

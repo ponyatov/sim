@@ -3,7 +3,7 @@
 next = dir@next
 
 files = [
-	MODULE+.sim
+	~(MODULE+MODULE)+.+MODULE
 	MODULE+.log
 	ypp.ypp
 	lpp.lpp

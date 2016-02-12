@@ -18,17 +18,20 @@ struct Sim {
 	Sim(string,string); Sim(string);
 	vector<Sim*> nest; void push(Sim*);
 	virtual string dump(int depth=0); string pad(int);
+	virtual string tagval(); string tagstr();
 	virtual Sim* eval(Env*);
 };
 extern void W(Sim*);
 extern void W(string);
+
+struct Str: Sim { Str(string); string tagval(); };
 
 struct List: Sim { List(); };
 
 typedef Sim*(*FN)(Sim*);
 struct Fn: Sim { Fn(string,FN); FN fn; };
 
-struct Op: Sim { Op(string); };
+struct Op: Sim { Op(string); Sim*eval(Env*); };
 
 struct Dir: Sim { Dir(string); };
 

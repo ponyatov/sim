@@ -3,20 +3,24 @@
 %}
 %defines %union { Sim*o; }
 %token <o> SIM				/* scalars: simbol */
-%token <o> LQ RQ			/* brackets: [ ] */
-%token <o> EQ AT			/* operators: = @ */
+%token <o> L R LQ RQ		/* brackets: ( ) [ ] */
+%token <o> EQ AT TILD		/* operators: = @ ~ */
 %token <o> ADD				/* operators: + - * / ^ */
 %type <o> ex list
 
 %left EQ
 %left AT
+%left ADD
+%left TILD
 %%
 REPL	: | REPL ex 	{ W($2->eval(env)); W("\n"); } ;
 ex		: SIM
+		| L ex R		{ $$=$2; }
 		| LQ list RQ	{ $$=$2; }
 		| ex EQ ex		{ $$=$2; $$->push($1); $$->push($3); }
 		| ex AT ex		{ $$=$2; $$->push($1); $$->push($3); }
 		| ex ADD ex		{ $$=$2; $$->push($1); $$->push($3); }
+		| TILD ex		{ $$=$1; $$->push($2); }
 ;
 list	:				{ $$=new List(); }
 		| list ex		{ $$=$1; $$->push($2); }
