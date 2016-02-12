@@ -26,6 +26,8 @@ List::List():Sim("[","]") {}
 
 Fn::Fn(string V, FN F):Sim("fn",V) { fn=F; }
 
+Op::Op(string V):Sim("op",V) {}
+
 Env* env;
 Sim* Env::lookup(string V) { return iron[V]; }
 
@@ -34,5 +36,8 @@ Sim* dir(Sim*o) { return new Dir(o->val); }
 
 void env_init() {
 	env = new Env;
+	// metainfo
+	env->iron["MODULE"] = new Sim(MODULE);
+	// fileio
 	env->iron["dir"] = new Fn("dir",dir);
 }

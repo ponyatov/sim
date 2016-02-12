@@ -28,6 +28,8 @@ struct List: Sim { List(); };
 typedef Sim*(*FN)(Sim*);
 struct Fn: Sim { Fn(string,FN); FN fn; };
 
+struct Op: Sim { Op(string); };
+
 struct Dir: Sim { Dir(string); };
 
 extern int yylex();

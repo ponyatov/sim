@@ -9,8 +9,10 @@
 \[				TOC(Sim,LQ)
 \]				TOC(Sim,RQ)
 
-\=				TOC(Sim,EQ)
-\@				TOC(Sim,AT)
+\=				TOC(Op,EQ)
+\@				TOC(Op,AT)
+
+\+				TOC(Op,ADD)
 
 [a-zA-Z0-9_.]+	TOC(Sim,SIM)
 

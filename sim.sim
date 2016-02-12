@@ -3,8 +3,8 @@
 next = dir@next
 
 files = [
-	sim.sim
-	sim.log
+	MODULE+.sim
+	MODULE+.log
 	ypp.ypp
 	lpp.lpp
 	hpp.hpp
