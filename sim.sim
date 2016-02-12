@@ -26,6 +26,6 @@ A = B		# first assignment
 [ A B C ]
 A = C		# second assignment evaluates as B = C ( A evals-> B )
 [ A B C ]
-~A = C		# forced second assignment with blocked ~A ( A evals-> A )
+~A = C		# forced second assignment with quoted ~A ( A evals-> A )
 [ A B C ]
 
