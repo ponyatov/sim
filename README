@@ -1,0 +1,31 @@
+== bI script language (sim variant) ==
+
+Literals:
+
+# comment
+-1 2.3 -4e+5	# bI/sim have no numbers, int:eger and num:ber
+0x12AF			# machine hexadecimal
+0b1101			# machine binary / binary string
+symbol			# can include _.
+'string'
+
+Brackets:
+
+()      grouping in expressions
+[]      plain list
+{}      lambda function
+
+Operators (infix):
+
+A = B   assignment
+A @ B   apply A (as function)
+A + B   concatenate (sum)
+
+Lambda:
+
+empty		= {}		# assign lambda as named function
+invariant	= {X:Y}		# <SIM>: marks lambda parameter
+copy		= {X:X}
+
+{X: Y: sqr@(X^2+Y^2)}	# sample with 2 parameters, unnamed lambda as is
+
