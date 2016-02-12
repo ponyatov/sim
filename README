@@ -3,7 +3,7 @@
 Literals:
 
 # comment
--1 2.3 -4e+5	# bI/sim have no numbers, int:eger and num:ber
+-1 2.3 -4e+5	# bI/sim have no numbers, int:eger and float num:ber
 0x12AF			# machine hexadecimal
 0b1101			# machine binary / binary string
 symbol			# can include _.
