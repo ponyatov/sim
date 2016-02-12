@@ -4,4 +4,15 @@
 %option noyywrap
 %option yylineno
 %%
+#[^\n]*			{}
+
+\[				TOC(LQ)
+\]				TOC(RQ)
+
+\=				TOC(EQ)
+\@				TOC(AT)
+
+[a-zA-Z0-9_.]+	TOC(SIM)
+
+[ \r\n\t]+		{}
 %%

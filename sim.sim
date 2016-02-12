@@ -1,6 +1,10 @@
+# lex model
+
+next = dir@next
+
 skeleton = [
 	sim.sim
-	log.log
+	sim.log
 	ypp.ypp
 	lpp.lpp
 	hpp.hpp

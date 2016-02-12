@@ -2,7 +2,20 @@
 #include "hpp.hpp"
 %}
 %defines %union { Sim*o; }
-%token <o> SIM
+%token <o> SIM				/* scalars: simbol */
+%token <o> LQ RQ			/* brackets: [ ] */
+%token <o> EQ AT			/* operators: = @ */
+%type <o> ex list
+
+%left EQ
+%left AT
 %%
-REPL : | REPL SIM { W($2); } ;
+REPL	: | REPL ex 	{ W($2); W("\n"); } ;
+ex		: SIM
+		| LQ list RQ	{ $$=$2; }
+		| ex EQ ex		{ $$=$2; $$->push($1); $$->push($3); }
+		| ex AT ex		{ $$=$2; $$->push($1); $$->push($3); }
+;
+list	:				{ $$=new List(); }
+		| list ex		{ $$=$1; $$->push($2); }
 %%
